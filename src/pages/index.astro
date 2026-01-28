@@ -5,7 +5,11 @@ import { getAgenti } from '../lib/googleSheets';
 const agenti = await getAgenti();
 ---
 
-<Layout title="Home - FRIMM Academy">
+<Layout 
+  title="Home - FRIMM Academy" 
+  description="Scopri i professionisti certificati FRIMM Academy. Digital Business Cards ufficiali."
+  image="/logo.png"
+>
   <main class="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center p-8 gap-12">
     <!-- Header with Logo -->
     <header class="w-full max-w-2xl flex flex-col items-center gap-6 animate-fade-in">
@@ -19,7 +23,7 @@ const agenti = await getAgenti();
       <h1 class="text-4xl font-extrabold tracking-tight text-white text-center">
         I Nostri <span class="text-cyan-400">Agenti</span>
       </h1>
-      <div class="h-1 w-24 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full"></div>
+      <div class="h-1 w-24 bg-linear-to-r from-cyan-500 to-blue-600 rounded-full"></div>
     </header>
 
     <!-- Agents List -->
