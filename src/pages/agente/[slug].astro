@@ -14,7 +14,7 @@ const { agente } = Astro.props;
 const { nome, cognome, ruolo, foto_url, telefono, email, linkedin } = agente;
 ---
 
-<Layout>
+<Layout title={`${nome} ${cognome} - FRIMM Academy`}>
   <main class="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center justify-center p-4 gap-8">
     <div class="max-w-md w-full bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-3xl overflow-hidden shadow-2xl transition-all hover:shadow-cyan-500/10 hover:border-cyan-500/30 group">
 
