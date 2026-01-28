@@ -1,8 +1,8 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { getAgenti } from '../../lib/googleSheets';
-import { Image } from 'astro:assets';
-import logo from '../../assets/logo.png';
+import Layout from "../../layouts/Layout.astro";
+import { getAgenti } from "../../lib/googleSheets";
+import { Image } from "astro:assets";
+import logo from "../../assets/logo_trasparente.webp";
 
 export async function getStaticPaths() {
   const agenti = await getAgenti();
@@ -13,83 +13,313 @@ export async function getStaticPaths() {
 }
 
 const { agente } = Astro.props;
-const { nome, cognome, ruolo, foto_url, telefono, email, linkedin } = agente;
+const {
+  prefisso,
+  nome,
+  cognome,
+  ruolo,
+  foto_url,
+  telefono,
+  email,
+  linkedin,
+  whatsapp,
+} = agente;
 ---
 
-<Layout 
+<Layout
   title={`${nome} ${cognome} - FRIMM Academy`}
   description={`Contatta ${nome} ${cognome}, ${ruolo} presso FRIMM Academy.`}
-  image={foto_url || '/logo.png'}
+  image={foto_url || "/logo.png"}
 >
-  <main class="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center justify-center p-4 gap-8">
-    <div class="max-w-md w-full bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-3xl overflow-hidden shadow-2xl transition-all hover:shadow-cyan-500/10 hover:border-cyan-500/30 group">
-
+  <main
+    class="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center justify-center p-4 gap-8"
+  >
+    <div
+      class="max-w-md w-full bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-3xl overflow-hidden shadow-2xl transition-all hover:shadow-cyan-500/10 hover:border-cyan-500/30 group"
+    >
       <div class="relative h-64 overflow-hidden">
-        {foto_url ? (
-          <Image 
-            src={foto_url} 
-            alt={`${nome} ${cognome}`} 
-            width={800}
-            height={600}
-            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          />
-        ) : (
-          <div class="w-full h-full bg-slate-800 flex items-center justify-center">
-            <span class="text-slate-500 italic">Nessuna foto</span>
-          </div>
-        )}
-        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+        {
+          foto_url ? (
+            <Image
+              src={foto_url}
+              alt={`${nome} ${cognome}`}
+              width={800}
+              height={600}
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+          ) : (
+            <div class="w-full h-full bg-slate-800 flex items-center justify-center">
+              <span class="text-slate-500 italic">Nessuna foto</span>
+            </div>
+          )
+        }
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"
+        >
+        </div>
         <div class="absolute bottom-6 left-6">
           <h1 class="text-3xl font-bold tracking-tight text-white m-0">
-            {nome} <span class="text-cyan-400">{cognome}</span>
+            {
+              prefisso && (
+                <span class="text-xl block text-slate-400 font-normal mb-1">
+                  {prefisso}
+                </span>
+              )
+            }
+            {nome}
+            <span class="">{cognome}</span>
           </h1>
-          <p class="text-slate-400 font-medium uppercase tracking-widest text-xs mt-1">{ruolo}</p>
+          <p
+            class="text-slate-400 font-medium uppercase tracking-widest text-sme mt-1"
+          >
+            {ruolo}
+          </p>
         </div>
       </div>
-    <div class="w-full max-w-[200px] sm:max-w-[250px] animate-fade-in px-4">
-      <Image 
-        src={logo} 
-        alt="Frimm Academy Logo" 
-        class="w-full h-auto drop-shadow-2xl"
-      />
-    </div>
+
       <div class="p-8 space-y-6">
         <div class="space-y-4">
-          {telefono && (
-            <a href={`tel:${telefono}`} class="flex items-center gap-4 text-slate-300 hover:text-cyan-400 transition-colors py-2 px-3 rounded-xl hover:bg-slate-800/50">
-              <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-cyan-500/20">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              </div>
-              <span class="font-medium">{telefono}</span>
-            </a>
-          )}
+          <div
+            class="w-full max-w-[200px] sm:max-w-[250px] animate-fade-in px-4"
+          >
+            <Image
+              src={logo}
+              alt="Frimm Academy Logo"
+              class="w-full h-auto drop-shadow-2xl"
+            />
+          </div>
+          {
+            telefono && (
+              <a
+                href={`tel:${telefono}`}
+                class="flex items-center gap-4 text-slate-300 hover:text-cyan-400 transition-colors py-2 px-3 rounded-xl hover:bg-slate-800/50"
+              >
+                <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-cyan-500/20">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-phone"
+                  >
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                </div>
+                <span class="font-medium">{telefono}</span>
+              </a>
+            )
+          }
 
-          {email && (
-            <a href={`mailto:${email}`} class="flex items-center gap-4 text-slate-300 hover:text-cyan-400 transition-colors py-2 px-3 rounded-xl hover:bg-slate-800/50">
-              <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-cyan-500/20">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-              </div>
-              <span class="font-medium truncate">{email}</span>
-            </a>
-          )}
+          {
+            email && (
+              <a
+                href={`mailto:${email}`}
+                class="flex items-center gap-4 text-slate-300 hover:text-cyan-400 transition-colors py-2 px-3 rounded-xl hover:bg-slate-800/50"
+              >
+                <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-cyan-500/20">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-mail"
+                  >
+                    <>
+                      <rect
+                        width="20"
+                        height="16"
+                        x="2"
+                        y="4"
+                        rx="2"
+                      />
+                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                    </>
+                  </svg>
+                </div>
+                <span class="font-medium truncate">{email}</span>
+              </a>
+            )
+          }
 
-          {linkedin && (
-            <a href={linkedin} target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 text-slate-300 hover:text-cyan-400 transition-colors py-2 px-3 rounded-xl hover:bg-slate-800/50">
-              <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-cyan-500/20">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-              </div>
-              <span class="font-medium">Profilo LinkedIn</span>
-            </a>
-          )}
+          {
+            whatsapp && (
+              <a
+                href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-4 text-slate-300 hover:text-green-400 transition-colors py-2 px-3 rounded-xl hover:bg-slate-800/50"
+              >
+                <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-green-500/20">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-message-circle"
+                  >
+                    <>
+                      <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+                      <path d="M8 12h.01" />
+                      <path d="M12 12h.01" />
+                      <path d="M16 12h.01" />
+                    </>
+                  </svg>
+                </div>
+                <span class="font-medium">WhatsApp</span>
+              </a>
+            )
+          }
+
+          {
+            linkedin && (
+              <a
+                href={linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-4 text-slate-300 hover:text-cyan-400 transition-colors py-2 px-3 rounded-xl hover:bg-slate-800/50"
+              >
+                <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-cyan-500/20">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-linkedin"
+                  >
+                    <>
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                      <rect
+                        width="4"
+                        height="12"
+                        x="2"
+                        y="9"
+                      />
+                      <circle
+                        cx="4"
+                        cy="4"
+                        r="2"
+                      />
+                    </>
+                  </svg>
+                </div>
+                <span class="font-medium">Profilo LinkedIn</span>
+              </a>
+            )
+          }
         </div>
 
-        <button 
-          onclick="window.print()" 
+        <button
+          onclick="window.print()"
           class="w-full py-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-2xl shadow-lg shadow-cyan-500/20 transition-all transform hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-2"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share-2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-share-2"
+            ><circle
+              cx="18"
+              cy="5"
+              r="3"
+            ></circle><circle
+              cx="6"
+              cy="12"
+              r="3"
+            ></circle><circle
+              cx="18"
+              cy="19"
+              r="3"
+            ></circle><line
+              x1="8.59"
+              x2="15.42"
+              y1="13.51"
+              y2="17.49"
+            ></line><line
+              x1="15.41"
+              x2="8.59"
+              y1="6.51"
+              y2="10.49"
+            ></line></svg
+          >
           Salva Contatto
         </button>
+
+        <div class="pt-6 border-t border-slate-800 text-center space-y-2">
+          <p class="text-slate-400 flex items-center justify-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-map-pin"
+              ><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"
+              ></path><circle
+                cx="12"
+                cy="10"
+                r="3"
+              ></circle></svg
+            >
+            Piazza Statuto, 16 - Torino
+          </p>
+          <a
+            href="https://www.frimmacademyitalia.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-cyan-500 hover:text-cyan-400 transition-colors inline-flex items-center gap-2"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-globe"
+              ><circle
+                cx="12"
+                cy="12"
+                r="10"
+              ></circle><path d="M12 2a14.5 14.5 0 0 0 0 20"></path><path
+                d="M2 12h20"></path><path d="M4.5 7h15"></path><path
+                d="M4.5 17h15"></path></svg
+            >
+            www.frimmacademyitalia.com
+          </a>
+        </div>
       </div>
     </div>
   </main>
@@ -97,7 +327,11 @@ const { nome, cognome, ruolo, foto_url, telefono, email, linkedin } = agente;
 
 <style>
   :global(body) {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family:
+      "Inter",
+      system-ui,
+      -apple-system,
+      sans-serif;
   }
 
   .animate-fade-in {
@@ -105,7 +339,13 @@ const { nome, cognome, ruolo, foto_url, telefono, email, linkedin } = agente;
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>
