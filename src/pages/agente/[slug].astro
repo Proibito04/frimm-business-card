@@ -271,7 +271,8 @@ const {
             Condividi
           </button>
 
-          <button
+          <a
+            href={`/agente/${agente.slug}.vcf`}
             id="vcardButton"
             class="w-full py-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-2xl shadow-lg shadow-cyan-500/20 transition-all transform hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-2"
           >
@@ -304,7 +305,7 @@ const {
               ></line></svg
             >
             In Rubrica
-          </button>
+          </a>
         </div>
 
         <div class="pt-6 border-t border-slate-800 text-center space-y-2">
@@ -389,7 +390,6 @@ const {
 
 <script define:vars={{ agente }}>
   const shareButton = document.getElementById("shareButton");
-  const vcardButton = document.getElementById("vcardButton");
 
   if (shareButton) {
     shareButton.addEventListener("click", async () => {
@@ -410,32 +410,6 @@ const {
       } catch (err) {
         console.error("Errore nella condivisione:", err);
       }
-    });
-  }
-
-  if (vcardButton) {
-    vcardButton.addEventListener("click", () => {
-      const vcard = `BEGIN:VCARD
-VERSION:3.0
-FN:${agente.nome} ${agente.cognome}
-N:${agente.cognome};${agente.nome};;;
-TITLE:${agente.ruolo}
-TEL;TYPE=CELL:${agente.telefono || ""}
-EMAIL;TYPE=INTERNET:${agente.email || ""}
-ORG:FRIMM Academy
-URL:https://www.frimmacademyitalia.com/
-ADR;TYPE=WORK:;;Piazza Statuto, 16;Torino;;;Italy
-END:VCARD`;
-
-      const blob = new Blob([vcard], { type: "text/vcard" });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${agente.nome}_${agente.cognome}.vcf`;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
     });
   }
 </script>
