@@ -9,6 +9,8 @@ export interface Agente {
     telefono: string;
     email: string;
     linkedin: string;
+    prefisso: string;
+    whatsapp: string;
 }
 
 export async function getAgenti(): Promise<Agente[]> {

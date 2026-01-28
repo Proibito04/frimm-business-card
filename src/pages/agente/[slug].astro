@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getAgenti } from '../../lib/googleSheets';
+import { Image } from 'astro:assets';
+import logo from '../../assets/logo.png';
 
 export async function getStaticPaths() {
   const agenti = await getAgenti();
@@ -23,11 +25,19 @@ const { nome, cognome, ruolo, foto_url, telefono, email, linkedin } = agente;
     <div class="max-w-md w-full bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-3xl overflow-hidden shadow-2xl transition-all hover:shadow-cyan-500/10 hover:border-cyan-500/30 group">
 
       <div class="relative h-64 overflow-hidden">
-        <img 
-          src={foto_url || '/placeholder-agent.jpg'} 
-          alt={`${nome} ${cognome}`} 
-          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-        />
+        {foto_url ? (
+          <Image 
+            src={foto_url} 
+            alt={`${nome} ${cognome}`} 
+            width={800}
+            height={600}
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+        ) : (
+          <div class="w-full h-full bg-slate-800 flex items-center justify-center">
+            <span class="text-slate-500 italic">Nessuna foto</span>
+          </div>
+        )}
         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
         <div class="absolute bottom-6 left-6">
           <h1 class="text-3xl font-bold tracking-tight text-white m-0">
@@ -37,8 +47,8 @@ const { nome, cognome, ruolo, foto_url, telefono, email, linkedin } = agente;
         </div>
       </div>
     <div class="w-full max-w-[200px] sm:max-w-[250px] animate-fade-in px-4">
-      <img 
-        src="/logo.png" 
+      <Image 
+        src={logo} 
         alt="Frimm Academy Logo" 
         class="w-full h-auto drop-shadow-2xl"
       />
