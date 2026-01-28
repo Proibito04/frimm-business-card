@@ -15,8 +15,9 @@ const { nome, cognome, ruolo, foto_url, telefono, email, linkedin } = agente;
 ---
 
 <Layout>
-  <main class="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-4">
+  <main class="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center justify-center p-4 gap-8">
     <div class="max-w-md w-full bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-3xl overflow-hidden shadow-2xl transition-all hover:shadow-cyan-500/10 hover:border-cyan-500/30 group">
+
       <div class="relative h-64 overflow-hidden">
         <img 
           src={foto_url || '/placeholder-agent.jpg'} 
@@ -31,7 +32,13 @@ const { nome, cognome, ruolo, foto_url, telefono, email, linkedin } = agente;
           <p class="text-slate-400 font-medium uppercase tracking-widest text-xs mt-1">{ruolo}</p>
         </div>
       </div>
-
+    <div class="w-full max-w-[200px] sm:max-w-[250px] animate-fade-in px-4">
+      <img 
+        src="/logo.png" 
+        alt="Frimm Academy Logo" 
+        class="w-full h-auto drop-shadow-2xl"
+      />
+    </div>
       <div class="p-8 space-y-6">
         <div class="space-y-4">
           {telefono && (
@@ -77,5 +84,14 @@ const { nome, cognome, ruolo, foto_url, telefono, email, linkedin } = agente;
 <style>
   :global(body) {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 1.2s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 </style>
