@@ -12,7 +12,7 @@ export default defineConfig({
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'www.rockagent.it',
+        hostname: 'i.ibb.co',
       },
     ],
   },
