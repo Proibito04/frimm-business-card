@@ -23,6 +23,8 @@ const {
   email,
   linkedin,
   whatsapp,
+  indirizzo,
+  link_maps,
 } = agente;
 ---
 
@@ -310,7 +312,8 @@ const {
 
         <div class="pt-6 border-t border-slate-800 text-center space-y-2">
           <a
-            href="https://maps.app.goo.gl/rZqU8p1JNrRUcxis6" target="_blank"
+            href={link_maps || "https://maps.app.goo.gl/rZqU8p1JNrRUcxis6"}
+            target="_blank"
             class="text-slate-400 flex items-center justify-center gap-2"
           >
             <svg
@@ -331,7 +334,7 @@ const {
                 r="3"
               ></circle></svg
             >
-            Piazza Statuto, 16 - Torino
+            {indirizzo || "Piazza Statuto, 16 - Torino"}
           </a>
           <a
             href="https://www.frimmacademyitalia.com/"

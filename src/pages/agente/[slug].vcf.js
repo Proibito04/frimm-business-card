@@ -19,7 +19,7 @@ TEL;TYPE=CELL:${agente.telefono || ""}
 EMAIL;TYPE=INTERNET:${agente.email || ""}
 ORG:FRIMM Academy
 URL:https://www.frimmacademyitalia.com/
-ADR;TYPE=WORK:;;Piazza Statuto, 16;Torino;;;Italy
+ADR;TYPE=WORK:${agente.indirizzo ? `;;${agente.indirizzo};;;;` : ';;Piazza Statuto, 16;Torino;;;Italy'}
 ${agente.foto_url ? `PHOTO;VALUE=URI:${agente.foto_url}` : ""}
 END:VCARD`;
 
