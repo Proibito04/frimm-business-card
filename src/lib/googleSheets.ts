@@ -11,6 +11,8 @@ export interface Agente {
     linkedin: string;
     prefisso: string;
     whatsapp: string;
+    indirizzo: string;
+    link_maps: string;
 }
 
 export async function getAgenti(): Promise<Agente[]> {
@@ -35,9 +37,25 @@ function parseCSV(csvText: string): Agente[] {
     const data = lines.slice(1);
 
     return data.map(line => {
-        // Handle potential commas inside quotes if necessary, but for this specific sheet it looks simple
-        // A more robust parser would be needed for complex CSVs, but let's start simple
-        const values = line.split(',').map(v => v.trim());
+        const values: string[] = [];
+        let inQuotes = false;
+        let currentValue = '';
+
+        for (let i = 0; i < line.length; i++) {
+            const char = line[i];
+            
+            if (char === '"') {              
+                inQuotes = !inQuotes;
+            } else if (char === ',' && !inQuotes) {
+                values.push(currentValue.trim());
+                currentValue = '';
+            } else {
+                currentValue += char;
+            }
+        }
+        values.push(currentValue.trim());
+
+
         const agente: any = {};
         headers.forEach((header, index) => {
             agente[header] = values[index] || '';
